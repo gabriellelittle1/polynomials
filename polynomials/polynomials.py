@@ -1,4 +1,4 @@
-from numbers import Number
+from numbers import Number, Integral
 
 class Polynomial:
 
@@ -65,8 +65,44 @@ class Polynomial:
     def __rsub__(self, other):
         return other - self
 
+    def __mul__(self, other):
+        degree = self.degree()+other.degree()
+        mult = [0 for i in range(degree+1)]
 
 
+        if isinstance(other, Polynomial):
+            for i in range(self.degree()+1):
+                for j in range(other.degree()+1):
+                    mult[i+j] += self.coefficients[i]*other.coefficients[j]
+            mult = tuple(mult)
+            return Polynomial(mult)
+
+        elif isinstance(other, Number):
+            coefs = tuple(other*a for a in self.coefficients)
+            return Polynomial(coefs)
+
+        else:
+            return NotImplemented
+    
+    def __rmul__(self, other):
+        return self*other
+
+    def __pow__(self, num):
+        if isinstance(num, Integral):
+            vec = [0 for i in range(num)]
+            vec[0] = self
+            for i in range(1,num):
+                vec[i] = self*vec[i-1]
+                
+            return vec[num-1]
+        else:
+            return NotImplemented
+
+    def __call__(self, x):
+        fx = 0
+        for i in range(len(self.coefficients)):
+            fx += self.coefficients[i]*x**i
+        return fx
 
 
 
