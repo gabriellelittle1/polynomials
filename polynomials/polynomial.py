@@ -1,12 +1,13 @@
-from .polynomials import Polynomial
-
+from polynomials import Polynomial
+from numbers import Number
 
 def deriv(poly):
-    polylist = list(poly.coefficients)
-    for i in range(len(poly)):
-        polylist[i] = i*poly[i]
-    newpolycoef = tuple(polylist.pop())
-    return Polynomial(newpolycoef)
+    return poly.dx()
+
+    
+     
+        
+
 
 
     

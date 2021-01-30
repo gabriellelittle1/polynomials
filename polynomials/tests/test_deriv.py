@@ -1,13 +1,13 @@
-from polynomials import Polynomial
+from polynomials import Polynomial, deriv
 import pytest
 
 
 @pytest.mark.parametrize(
     "a, d",
-    ( ((0,), (0,)), 
-    ( (2, 0, 3), (0, 6)),
-    ( (4, 2), (2,) ) )
+    ( (Polynomial((0,)), Polynomial((0,))), 
+    ( Polynomial((2, 0, 3)), (Polynomial((0, 6)))),
+    ( Polynomial((4, 2)), Polynomial((2,)) ) )
 )
 
 def test_deriv(a, d):
-    assert Polynomial(deriv(a)) == Polynomial(d)
+    assert deriv(a) == d

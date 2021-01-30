@@ -104,6 +104,25 @@ class Polynomial:
             fx += self.coefficients[i]*x**i
         return fx
 
+    def dx(self):
+        if self.degree()==0:
+            return Polynomial((0,))
+    
+        elif isinstance(self, Polynomial):
+            selflist = list(self.coefficients)
+            for b in range(len(selflist)):
+                selflist[b] = selflist[b]*b
+        
+            selflist.pop(0)
+            print(selflist)
+            newcoef = tuple(selflist)
+            print(newcoef)
+            return Polynomial(newcoef)
+
+        else: 
+            return NotImplemented
+
+
 
 
 
